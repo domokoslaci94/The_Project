@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerShowSummary">
+   <children>
+      <Button fx:id="butttonOk" layoutX="284.0" layoutY="544.0" mnemonicParsing="false" onAction="#handleButtonOk" text="Ok" />
+      <GridPane prefHeight="532.0" prefWidth="600.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <PieChart fx:id="pieChart" title="Trips by Length" />
+            <LineChart fx:id="lineChart" legendVisible="false" title="Avarge speed VS Avarge Elevation" GridPane.rowIndex="1">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" fx:id="xAxisLineChart" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yAxisLineChart" side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <Label layoutX="90.0" layoutY="3.0" text="Summarization">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label layoutX="14.0" layoutY="59.0" prefHeight="20.0" prefWidth="163.0" text="Number of trips:">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label layoutX="14.0" layoutY="89.0" prefHeight="20.0" prefWidth="163.0" text="Average length:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="118.0" prefHeight="20.0" prefWidth="163.0" text="Average start height:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="144.0" prefHeight="20.0" prefWidth="163.0" text="Average end height:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="numberOfTripsLabel" alignment="CENTER_RIGHT" layoutX="189.0" layoutY="60.0" prefWidth="80.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="averageLengthLabel" alignment="CENTER_RIGHT" layoutX="189.0" layoutY="90.0" prefWidth="80.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="averageStartHeightLabel" alignment="CENTER_RIGHT" layoutX="189.0" layoutY="119.0" prefWidth="80.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="averageEndHeightLabel" alignment="CENTER_RIGHT" layoutX="189.0" layoutY="145.0" prefWidth="80.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="15.0" layoutY="204.0" prefHeight="20.0" prefWidth="163.0" text="Sum of lengths:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="174.0" text="Average height difference:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="averageHeightDifferenceLabel" alignment="CENTER_RIGHT" layoutX="189.0" layoutY="174.0" prefWidth="80.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sumOfLengthsLabel" alignment="CENTER_RIGHT" layoutX="189.0" layoutY="204.0" prefWidth="80.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <BarChart fx:id="barChart" legendVisible="false" title="Trip frequency" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" fx:id="xAxisBarChart" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yAxisBarChart" side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children>
+      </GridPane>
+   </children>
+</Pane>

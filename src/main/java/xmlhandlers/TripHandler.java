@@ -1,3 +1,4 @@
+package xmlhandlers;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -6,6 +7,8 @@ import java.util.List;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import model.Trip;
 
 public class TripHandler extends DefaultHandler {
 

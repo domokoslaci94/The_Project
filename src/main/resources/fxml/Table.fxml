@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerTable">
+   <children>
+      <TableView fx:id="tableView" layoutY="165.0" prefHeight="400.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0">
+         <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="147.0" text="Name" />
+            <TableColumn fx:id="beginDateColumn" minWidth="0.0" prefWidth="107.0" text="Begin Date" />
+            <TableColumn fx:id="endDateColumn" prefWidth="70.0" text="End Date" />
+            <TableColumn fx:id="durationColumn" prefWidth="69.0" text="Duration" />
+            <TableColumn fx:id="lengthColumn" prefWidth="79.0" text="Length" />
+            <TableColumn fx:id="startHeightColumn" prefWidth="81.0" text="Start Height" />
+            <TableColumn fx:id="endHeightColumn" prefWidth="84.0" text="End Height" />
+            <TableColumn fx:id="heightDifferenceColumn" prefWidth="120.0" text="Height Difference" />
+            <TableColumn fx:id="avgSpeedColumn" prefWidth="122.0" text="Average Speed" />
+            <TableColumn fx:id="avgElevationColumn" prefWidth="113.0" text="Average Elevation" />
+            <TableColumn fx:id="commentColumn" prefWidth="207.0" text="Comment" />
+         </columns>
+      </TableView>
+      <CheckBox fx:id="chkEndDate" layoutX="191.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkEndDate" selected="true" text="End Date" AnchorPane.topAnchor="95.0" />
+      <CheckBox fx:id="chkName" layoutX="24.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkName" prefHeight="17.0" prefWidth="53.0" selected="true" text="Name" AnchorPane.topAnchor="95.0" />
+      <CheckBox fx:id="chkBeginDate" layoutX="93.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkBeginDate" selected="true" text="Begin Date" AnchorPane.topAnchor="95.0" />
+      <Button fx:id="buttonDelete" layoutX="208.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleButtonDelete" prefHeight="25.0" prefWidth="53.0" text="Delete" />
+      <Label layoutX="913.0" layoutY="26.0" text="Search: (by Name)" />
+      <TextField fx:id="textField" layoutX="1018.0" layoutY="22.0" />
+      <Button fx:id="butttonAdd" layoutX="154.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleButtonAdd" text="Add" />
+      <Button fx:id="buttonEdit" layoutX="103.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleButtonEdit" text="Edit" />
+      <Button fx:id="buttonShowSummary" layoutX="24.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleButtonSummary" text="Summary" />
+      <CheckBox fx:id="chkDuration" layoutX="278.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkDuration" selected="true" text="Duration" AnchorPane.topAnchor="95.0" />
+      <CheckBox fx:id="chkLength" layoutX="359.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkLength" selected="true" text="Length" AnchorPane.topAnchor="95.0" />
+      <CheckBox fx:id="chkStartHeight" layoutX="430.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkStartHeight" selected="true" text="Start Height" AnchorPane.topAnchor="95.0" />
+      <CheckBox fx:id="chkEndHeight" layoutX="530.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkEndHeight" selected="true" text="End Height" AnchorPane.topAnchor="95.0" />
+      <CheckBox fx:id="chkHeightDifference" layoutX="622.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkHeightDifference" selected="true" text="Height Difference" AnchorPane.topAnchor="95.0" />
+      <CheckBox fx:id="chkAvgSpeed" layoutX="751.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkAvgSpeed" selected="true" text="Average Speed" AnchorPane.topAnchor="95.0" />
+      <CheckBox fx:id="chkAvgElevation" layoutX="867.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkAvgElevation" selected="true" text="Average Evelation" AnchorPane.topAnchor="95.0" />
+      <CheckBox fx:id="chkComment" layoutX="998.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleChkComment" selected="true" text="Comment" AnchorPane.topAnchor="95.0" />
+      <Button fx:id="buttonLoad" layoutX="286.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleButtonLoad" text="Load" />
+      <Label layoutX="530.0" layoutY="26.0" prefHeight="17.0" prefWidth="88.0" text="Length" />
+      <Label layoutX="675.0" layoutY="26.0" text="Speed" />
+      <RadioButton fx:id="mpersRadio" layoutX="675.0" layoutY="47.0" mnemonicParsing="false" selected="true" text="M/s" />
+      <RadioButton fx:id="kmperhRadio" layoutX="675.0" layoutY="68.0" mnemonicParsing="false" text="KM/h" />
+      <RadioButton fx:id="meterRadio" layoutX="530.0" layoutY="44.0" mnemonicParsing="false" selected="true" text="Meters" />
+      <RadioButton fx:id="kilometerRadio" layoutX="531.0" layoutY="66.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="Kilometers" />
+   </children>
+</AnchorPane>

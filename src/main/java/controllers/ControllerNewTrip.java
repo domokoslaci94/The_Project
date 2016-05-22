@@ -1,7 +1,8 @@
+package controllers;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -10,11 +11,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Trip;
+import utils.DataUtils;
+import utils.ValidatorUtils;
 
-public class ControllerEditTrip {
+public class ControllerNewTrip {
 
 	private Stage stage;
-	private Trip trip;
 
 	@FXML
 	private TextField nameField, startHeightField, endHeightField, lengthField, commentField, startTimeHoursField,
@@ -70,8 +73,8 @@ public class ControllerEditTrip {
 			LocalDateTime endTime = null;
 			nullLabels();
 
-			if (!Calculator.isCorrectHour(startTimeHoursField.getText())
-					|| !Calculator.isCorrectMinutes(startTimeMinutesField.getText())) {
+			if (!ValidatorUtils.isCorrectHour(startTimeHoursField.getText())
+					|| !ValidatorUtils.isCorrectMinutes(startTimeMinutesField.getText())) {
 				startTimeErrorLabel.setText("The specified date or time is invalid!");
 				startTimeErrorLabel.setVisible(true);
 				correct = false;
@@ -92,8 +95,8 @@ public class ControllerEditTrip {
 				}
 			}
 
-			if (!Calculator.isCorrectHour(endTimeHoursField.getText())
-					|| !Calculator.isCorrectMinutes(endTimeMinutesField.getText())) {
+			if (!ValidatorUtils.isCorrectHour(endTimeHoursField.getText())
+					|| !ValidatorUtils.isCorrectMinutes(endTimeMinutesField.getText())) {
 				endTimeErrorLabel.setText("The specified date or time is invalid!");
 				endTimeErrorLabel.setVisible(true);
 				correct = false;
@@ -144,7 +147,7 @@ public class ControllerEditTrip {
 				correct = false;
 			}
 
-			if (!Calculator.isCorrectHeight(startHeightField.getText())) {
+			if (!ValidatorUtils.isCorrectHeight(startHeightField.getText())) {
 				startHeightErrorLabel
 						.setText("The specified height is invalid the value must be between 0 and 10 000 000");
 				startHeightErrorLabel.setVisible(true);
@@ -157,7 +160,7 @@ public class ControllerEditTrip {
 				correct = false;
 			}
 
-			if (!Calculator.isCorrectHeight(endHeightField.getText())) {
+			if (!ValidatorUtils.isCorrectHeight(endHeightField.getText())) {
 				endHeightErrorLabel
 						.setText("The specified height is invalid the value must be between 0 and 10 000 000");
 				endHeightErrorLabel.setVisible(true);
@@ -170,7 +173,7 @@ public class ControllerEditTrip {
 				correct = false;
 			}
 
-			if (!Calculator.isCorrectLength(lengthField.getText())) {
+			if (!ValidatorUtils.isCorrectLength(lengthField.getText())) {
 				lengthErrorLabel.setText(
 						"The specified length is invalid the value must be between -10 000 000 and 10 000 000");
 				lengthErrorLabel.setVisible(true);
@@ -190,21 +193,24 @@ public class ControllerEditTrip {
 			}
 
 			if (correct) {
-				trip.setName(nameField.getText());
-				trip.setStartTime(startTime);
-				trip.setEndTime(endTime);
-				trip.setStartHeight(Integer.parseInt(startHeightField.getText()));
-				trip.setEndHeight(Integer.parseInt(endHeightField.getText()));
-				trip.setLength(Integer.parseInt(lengthField.getText()));
+				Trip newTrip = new Trip();
+
+				newTrip.setName(nameField.getText());
+				newTrip.setStartTime(startTime);
+				newTrip.setEndTime(endTime);
+				newTrip.setStartHeight(Integer.parseInt(startHeightField.getText()));
+				newTrip.setEndHeight(Integer.parseInt(endHeightField.getText()));
+				newTrip.setLength(Integer.parseInt(lengthField.getText()));
 
 				if (commentField.getText().trim().length() < 1) {
-					trip.setComment("-");
+					newTrip.setComment("-");
 				} else {
-					trip.setComment(commentField.getText());
+					newTrip.setComment(commentField.getText());
 				}
 
-				trip.refresh();
-				System.out.println(trip.getAvgSpeed());
+				newTrip.refresh();
+
+				DataUtils.tripList.add(newTrip);
 				stage.close();
 			}
 
@@ -218,31 +224,8 @@ public class ControllerEditTrip {
 		}
 	}
 
-	public Trip getTrip() {
-		return trip;
-	}
-
-	public void setTrip(Trip trip) {
-		this.trip = trip;
-		trip.refresh();
-		nameField.setText(trip.getName());
-		LocalDate startTime = LocalDate.of(trip.getStartTime().getYear(), trip.getStartTime().getMonth(),
-				trip.getStartTime().getDayOfMonth());
-		LocalDate endTime = LocalDate.of(trip.getEndTime().getYear(), trip.getEndTime().getMonth(),
-				trip.getEndTime().getDayOfMonth());
-		startTimeDatePicker.setValue(startTime);
-		endTimeDatePicker.setValue(endTime);
-
-		startTimeHoursField.setText(String.valueOf(trip.getStartTime().getHour()));
-		startTimeMinutesField.setText(String.valueOf(trip.getStartTime().getMinute()));
-		endTimeHoursField.setText(String.valueOf(trip.getEndTime().getHour()));
-		endTimeMinutesField.setText(String.valueOf(trip.getEndTime().getMinute()));
-
-		startHeightField.setText(String.valueOf(trip.getStartHeight()));
-		endHeightField.setText(String.valueOf(trip.getEndHeight()));
-		lengthField.setText(String.valueOf(trip.getLength()));
-		commentField.setText(String.valueOf(trip.getComment()));
-
+	public Stage getStage() {
+		return stage;
 	}
 
 	public void setStage(Stage stage) {

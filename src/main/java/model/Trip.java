@@ -1,3 +1,4 @@
+package model;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -8,6 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import utils.CalculatorUtils;
 
 public class Trip {
 	private StringProperty id;
@@ -18,9 +20,7 @@ public class Trip {
 	private IntegerProperty endHeight;
 	private IntegerProperty length;
 	private StringProperty comment;
-	
-	//TODO: Ezeket még kezelni kell;
-	
+		
 	private ObjectProperty<Duration> duration;
 	private IntegerProperty heightDifference;
 	private DoubleProperty avgSpeed;
@@ -29,6 +29,7 @@ public class Trip {
 
 	public Trip() {
 		this("","",LocalDateTime.now(),LocalDateTime.now(),0,0,0,"-");
+		refresh();
 	}
 
 	public Trip(String id, String name, LocalDateTime startTime,
@@ -43,13 +44,15 @@ public class Trip {
 		this.endHeight = new SimpleIntegerProperty(endHeight);
 		this.length = new SimpleIntegerProperty(length);
 		this.comment = new SimpleStringProperty(comment);
+		
+		refresh();
 	}
 	
 	public void refresh(){
-		duration = Calculator.calculateDuration(startTime, endTime);
-		heightDifference = Calculator.calculateHeightDifference(startHeight, endHeight);
-		avgSpeed = Calculator.calculateAvgSpeed(duration, length);
-		avgElevation = Calculator.calculateAvgEvulation(startHeight, endHeight, length);
+		duration = CalculatorUtils.calculateDuration(startTime, endTime);
+		heightDifference = CalculatorUtils.calculateHeightDifference(startHeight, endHeight);
+		avgSpeed = CalculatorUtils.calculateAvgSpeed(duration, length);
+		avgElevation = CalculatorUtils.calculateAvgEvulation(startHeight, endHeight, length);
 	}
 
 	public StringProperty getIdProperty() {

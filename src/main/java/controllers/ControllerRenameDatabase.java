@@ -1,3 +1,4 @@
+package controllers;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import utils.DataUtils;
 
 public class ControllerRenameDatabase {
 	
@@ -29,7 +31,7 @@ public class ControllerRenameDatabase {
 	private Stage stage;
 	
 	public void init() throws TransformerConfigurationException, ParserConfigurationException, SAXException, IOException{
-		name = DataHandler.databaseMap.get(id);
+		name = DataUtils.databaseMap.get(id);
 		textField.setText(name);
 		label.setVisible(false);
 	}
@@ -39,19 +41,19 @@ public class ControllerRenameDatabase {
 		if(e.getSource() == buttonOk){
 			if(!(name.equals(textField.getText()))){
 				String tmpName = textField.getText();
-				System.out.println(DataHandler.validateName(tmpName));
-				if (DataHandler.validateName(tmpName) == -1) {
+				System.out.println(DataUtils.validateName(tmpName));
+				if (DataUtils.validateName(tmpName) == -1) {
 					label.setText("The name must be at least 3 characters long!");
 					label.setVisible(true);
-				} else if (DataHandler.validateName(tmpName) == -2) {
+				} else if (DataUtils.validateName(tmpName) == -2) {
 					label.setText("Name already in use!");
 					label.setVisible(true);
-				} else if (DataHandler.validateName(tmpName) == -3) {
+				} else if (DataUtils.validateName(tmpName) == -3) {
 					label.setText("The name can only contain letters of the english ABC!");
 					label.setVisible(true);
-				} else if (DataHandler.validateName(tmpName) == 1) {
+				} else if (DataUtils.validateName(tmpName) == 1) {
 					String newName = tmpName;
-					DataHandler.databaseMap.replace(id, newName);
+					DataUtils.databaseMap.replace(id, newName);
 					stage.close();
 				}
 			}

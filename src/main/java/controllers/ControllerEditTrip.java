@@ -1,7 +1,8 @@
+package controllers;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -10,6 +11,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Trip;
+import utils.ValidatorUtils;
 
 public class ControllerEditTrip {
 
@@ -70,8 +73,8 @@ public class ControllerEditTrip {
 			LocalDateTime endTime = null;
 			nullLabels();
 
-			if (!Calculator.isCorrectHour(startTimeHoursField.getText())
-					|| !Calculator.isCorrectMinutes(startTimeMinutesField.getText())) {
+			if (!ValidatorUtils.isCorrectHour(startTimeHoursField.getText())
+					|| !ValidatorUtils.isCorrectMinutes(startTimeMinutesField.getText())) {
 				startTimeErrorLabel.setText("The specified date or time is invalid!");
 				startTimeErrorLabel.setVisible(true);
 				correct = false;
@@ -92,8 +95,8 @@ public class ControllerEditTrip {
 				}
 			}
 
-			if (!Calculator.isCorrectHour(endTimeHoursField.getText())
-					|| !Calculator.isCorrectMinutes(endTimeMinutesField.getText())) {
+			if (!ValidatorUtils.isCorrectHour(endTimeHoursField.getText())
+					|| !ValidatorUtils.isCorrectMinutes(endTimeMinutesField.getText())) {
 				endTimeErrorLabel.setText("The specified date or time is invalid!");
 				endTimeErrorLabel.setVisible(true);
 				correct = false;
@@ -144,7 +147,7 @@ public class ControllerEditTrip {
 				correct = false;
 			}
 
-			if (!Calculator.isCorrectHeight(startHeightField.getText())) {
+			if (!ValidatorUtils.isCorrectHeight(startHeightField.getText())) {
 				startHeightErrorLabel
 						.setText("The specified height is invalid the value must be between 0 and 10 000 000");
 				startHeightErrorLabel.setVisible(true);
@@ -157,7 +160,7 @@ public class ControllerEditTrip {
 				correct = false;
 			}
 
-			if (!Calculator.isCorrectHeight(endHeightField.getText())) {
+			if (!ValidatorUtils.isCorrectHeight(endHeightField.getText())) {
 				endHeightErrorLabel
 						.setText("The specified height is invalid the value must be between 0 and 10 000 000");
 				endHeightErrorLabel.setVisible(true);
@@ -170,7 +173,7 @@ public class ControllerEditTrip {
 				correct = false;
 			}
 
-			if (!Calculator.isCorrectLength(lengthField.getText())) {
+			if (!ValidatorUtils.isCorrectLength(lengthField.getText())) {
 				lengthErrorLabel.setText(
 						"The specified length is invalid the value must be between -10 000 000 and 10 000 000");
 				lengthErrorLabel.setVisible(true);

@@ -1,5 +1,9 @@
+package utils;
+
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +14,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -21,58 +24,43 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-public class DataHandler {
+import controllers.MainView;
+import dao.DatabaseDaoImpl;
+import dao.TripDaoImpl;
+import model.Trip;
 
-	// TODO: Refractor to static
-
-	private DataHandler() {
+public class DataUtils {
+	
+	private DataUtils() {
 	}
 
 	public static List<Trip> tripList = new ArrayList<Trip>();
 	public static Map<String, String> databaseMap = new HashMap<String, String>();
 
 	public static DatabaseDaoImpl databaseDaoImpl;
-	public static TripDaoImpl tripDao;
+	public static TripDaoImpl tripDaoImpl;
 
 	public static DocumentBuilderFactory documentBuilderFactory;
 	public static DocumentBuilder documentBuilder;
 	public static TransformerFactory transformerFactory;
 	public static Transformer transformer;
 
+	public static Path dirPathDatabase;
+	public static Path dirPathTrips;
+
 	public static String regex = "[a-zA-z]*";
 
-	static {
-		try {
-			databaseDaoImpl = new DatabaseDaoImpl();
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			tripDao = new TripDaoImpl();
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void intit() throws ParserConfigurationException, SAXException, IOException, TransformerException {
 		documentBuilderFactory = DocumentBuilderFactory.newInstance();
-		try {
-			documentBuilder = documentBuilderFactory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		documentBuilder = documentBuilderFactory.newDocumentBuilder();
 		transformerFactory = TransformerFactory.newInstance();
-		try {
-			transformer = transformerFactory.newTransformer();
-		} catch (TransformerConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		transformer = transformerFactory.newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+		databaseDaoImpl = new DatabaseDaoImpl();
+		tripDaoImpl = new TripDaoImpl();
 
 		databaseMap = databaseDaoImpl.getDatabases();
-
 	}
 
 	public static Map<String, String> getDatabaseMap() {
@@ -80,14 +68,16 @@ public class DataHandler {
 	}
 
 	public static List<Trip> getTripListById(String id) {
-		tripList = tripDao.getAllTripsById(id);
+		tripList = tripDaoImpl.getAllTripsById(id);
 
 		return tripList;
 	}
 
-	public static void saveDataBaseMap() throws SAXException, IOException, TransformerException {
+	public static void saveDataBaseMap()
+			throws SAXException, IOException, TransformerException, ParserConfigurationException {
 
-		Document document = documentBuilder.parse(new File("Database.xml"));
+		File filePath = DataUtils.getDatabaseLocation();
+		Document document = documentBuilder.parse(filePath);
 
 		if (document.hasChildNodes()) {
 			Node databases = document.getFirstChild();
@@ -110,7 +100,7 @@ public class DataHandler {
 
 		DOMSource source = new DOMSource(document);
 
-		StreamResult streamResult = new StreamResult(new File("Database.xml"));
+		StreamResult streamResult = new StreamResult(filePath);
 		transformer.transform(source, streamResult);
 
 	}
@@ -132,30 +122,82 @@ public class DataHandler {
 
 		DOMSource source = new DOMSource(document);
 
-		StreamResult streamResult = new StreamResult(new File(id + ".xml"));
+		Path filePath = Paths.get(System.getProperty("user.home"), ".trip-manager", ".databases", id + ".xml");
+		File file = filePath.toFile();
+
+		StreamResult streamResult = new StreamResult(file);
 		transformer.transform(source, streamResult);
+	}
+
+	public static File getDatabaseLocation()
+			throws IOException, TransformerException, SAXException, ParserConfigurationException {
+		dirPathDatabase = Paths.get(System.getProperty("user.home"), ".trip-manager");
+
+		if (!dirPathDatabase.toFile().exists()) {
+			dirPathDatabase.toFile().mkdir();
+		}
+
+		dirPathTrips = Paths.get(System.getProperty("user.home"), ".trip-manager", ".databases");
+
+		if (!dirPathTrips.toFile().exists()) {
+			dirPathTrips.toFile().mkdir();
+		}
+
+		Path filePath = Paths.get(System.getProperty("user.home"), ".trip-manager", "database.xml");
+
+		File file = filePath.toFile();
+
+		if (!file.exists()) {
+			file.createNewFile();
+
+			Document document = documentBuilder.newDocument();
+
+			Element rootElement = document.createElement("databases");
+			document.appendChild(rootElement);
+
+			DOMSource source = new DOMSource(document);
+			StreamResult streamResult = new StreamResult(file);
+			transformer.transform(source, streamResult);
+		}
+
+		return file;
+
 	}
 
 	public static void saveTripList(String id) throws SAXException, IOException, TransformerException {
 
-		Document document = documentBuilder.parse(new File(id+".xml"));
-		
-		System.out.println(id);
+		Path filePath = Paths.get(System.getProperty("user.home"), ".trip-manager", ".databases", id + ".xml");
+		File xml = filePath.toFile();
+		Document document;
+		if (!xml.exists()) {
+			xml.createNewFile();
 
+			document = documentBuilder.newDocument();
+
+			Element rootElement = document.createElement("databases");
+			document.appendChild(rootElement);
+
+			DOMSource source = new DOMSource(document);
+
+			transformerFactory = TransformerFactory.newInstance();
+			StreamResult streamResult = new StreamResult(xml);
+			transformer.transform(source, streamResult);
+		}
+		 
+		document = documentBuilder.parse(xml);
 		if (document.hasChildNodes()) {
 			Node trips = document.getFirstChild();
 			document.removeChild(trips);
 		} else {
 			// TODO: Ezt át kell írni
 			System.out.println("Hiba!");
-
 		}
 
 		Element rootElement = document.createElement("trips");
 		rootElement.setAttribute("databaseid", MainView.tripTableId);
 		document.appendChild(rootElement);
 
-		for (Trip trip : DataHandler.tripList) {
+		for (Trip trip : DataUtils.tripList) {
 			Element newTrip = document.createElement("trip");
 
 			Element name = document.createElement("name");
@@ -163,11 +205,11 @@ public class DataHandler {
 			newTrip.appendChild(name);
 
 			Element startTime = document.createElement("start_time");
-			startTime.setTextContent(Calculator.formatLocalDate(trip.getStartTime()));
+			startTime.setTextContent(ConverterUtils.formatLocalDate(trip.getStartTime()));
 			newTrip.appendChild(startTime);
 
 			Element endTime = document.createElement("end_time");
-			endTime.setTextContent(Calculator.formatLocalDate(trip.getEndTime()));
+			endTime.setTextContent(ConverterUtils.formatLocalDate(trip.getEndTime()));
 			newTrip.appendChild(endTime);
 
 			Element startHeight = document.createElement("start_height");
@@ -191,7 +233,7 @@ public class DataHandler {
 
 		DOMSource source = new DOMSource(document);
 
-		StreamResult streamResult = new StreamResult(new File(id+".xml"));
+		StreamResult streamResult = new StreamResult(xml);
 		transformer.transform(source, streamResult);
 
 	}
@@ -203,7 +245,7 @@ public class DataHandler {
 	}
 
 	public static int validateName(String name) {
-		if (databaseMap == null) {
+		if (databaseMap == null || databaseMap.isEmpty()) {
 			return 1;
 		} else if (name.length() < 3) {
 			return -1;
