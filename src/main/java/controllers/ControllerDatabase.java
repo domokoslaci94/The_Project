@@ -1,3 +1,4 @@
+ // CHECKSTYLE:OFF
 package controllers;
 
 import java.io.IOException;
@@ -31,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 import utils.DataUtils;
+import utils.ValidatorUtils;
 
 public class ControllerDatabase {
 
@@ -75,19 +77,19 @@ public class ControllerDatabase {
 		if (e.getSource() == buttonAdd) {
 			Logger.info("Add button pressed");
 			String name = textField.getText();
-			if (DataUtils.validateName(name) == -1) {
+			if (ValidatorUtils.validateName(name) == -1) {
 				Logger.error("The name must be at least 3 characters long!");
 				label.setText("The name must be at least 3 characters long!");
 				label.setVisible(true);
-			} else if (DataUtils.validateName(name) == -2) {
+			} else if (ValidatorUtils.validateName(name) == -2) {
 				Logger.error("Name already in use!");
 				label.setText("Name already in use!");
 				label.setVisible(true);
-			} else if (DataUtils.validateName(name) == -3) {
+			} else if (ValidatorUtils.validateName(name) == -3) {
 				Logger.error("The name can only contain letters of the english ABC!");
 				label.setText("The name can only contain letters of the english ABC!");
 				label.setVisible(true);
-			} else if (DataUtils.validateName(name) == 1) {
+			} else if (ValidatorUtils.validateName(name) == 1) {
 				Logger.info("Correct name!");
 				String id = UUID.randomUUID().toString();
 				DataUtils.databaseMap.put(id, name);
@@ -154,7 +156,7 @@ public class ControllerDatabase {
 		alert.showAndWait();
 	}
 
-	// @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@FXML
 	private void initialize()
 			throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException {
@@ -175,7 +177,7 @@ public class ControllerDatabase {
 			}
 		};
 
-		// TODO: unchecked
+		//Unchecked
 		tableView.getColumns().setAll(nameColumn);
 		nameColumn.setCellValueFactory(cellValueFactory);
 

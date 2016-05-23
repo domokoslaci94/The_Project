@@ -1,3 +1,4 @@
+ // CHECKSTYLE:OFF
 package controllers;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ControllerShowSummary {
 	private BarChart<String, Integer> barChart;
 
 	@FXML
-	private LineChart<Number, Number> lineChart;
+	private LineChart<String, Double> lineChart;
 
 	@FXML
 	private CategoryAxis xAxisLineChart, xAxisBarChart;
@@ -93,20 +94,20 @@ public class ControllerShowSummary {
 		}
 
 		// Lince chart
-		XYChart.Series lineChartSeries = new XYChart.Series();
+		XYChart.Series<String, Double> lineChartSeries = new XYChart.Series<String, Double>();
 
 		yAxisLineChart.setLabel("Avarge Speed");
 		xAxisLineChart.setLabel("Avarge elevation");
 
 		for (int i = 0; i < avgSpeeds.size(); i++) {
 			lineChartSeries.getData()
-					.add(new XYChart.Data(String.format("%f", avgElevations.get(i)), avgSpeeds.get(i)));
+					.add(new XYChart.Data<String, Double>(String.format("%f", avgElevations.get(i)), avgSpeeds.get(i)));
 		}
 
 		lineChart.getData().add(lineChartSeries);
 
 		// Bar chart
-		XYChart.Series barChartSeries = new XYChart.Series();
+		XYChart.Series<String, Integer> barChartSeries = new XYChart.Series<String, Integer>();
 
 		ObservableList<String> names = FXCollections.observableArrayList();
 

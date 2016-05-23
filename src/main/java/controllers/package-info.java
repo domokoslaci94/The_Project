@@ -1,5 +1,4 @@
 /**
- * 
- * This package holds the controllers of the Graphical User Interface
+ * This package holds the controllers of the Graphical User Interface.
  */
 package controllers;

@@ -82,29 +82,29 @@ public class CalculatorUtilsTest {
 
 	@Test
 	public void testCalculateAvgElevation() {
-		assertEquals(new Double(0), CalculatorUtils.calculateAvgEvulation(0, 1000));
-		assertEquals(new Double(0), CalculatorUtils.calculateAvgEvulation(1000, 0));
-		assertEquals(new Double(0.5), CalculatorUtils.calculateAvgEvulation(1000, 2000));
+		assertEquals(new Double(0), CalculatorUtils.calculateAvgElevation(0, 1000));
+		assertEquals(new Double(0), CalculatorUtils.calculateAvgElevation(1000, 0));
+		assertEquals(new Double(0.5), CalculatorUtils.calculateAvgElevation(1000, 2000));
 
 		assertEquals(new SimpleDoubleProperty(0).getValue(), CalculatorUtils
-				.calculateAvgEvulation(new SimpleIntegerProperty(0), new SimpleIntegerProperty(1000)).getValue());
+				.calculateAvgElevation(new SimpleIntegerProperty(0), new SimpleIntegerProperty(1000)).getValue());
 		assertEquals(new SimpleDoubleProperty(0).getValue(), CalculatorUtils
-				.calculateAvgEvulation(new SimpleIntegerProperty(1000), new SimpleIntegerProperty(0)).getValue());
+				.calculateAvgElevation(new SimpleIntegerProperty(1000), new SimpleIntegerProperty(0)).getValue());
 		assertEquals(new SimpleDoubleProperty(0.5).getValue(), CalculatorUtils
-				.calculateAvgEvulation(new SimpleIntegerProperty(1000), new SimpleIntegerProperty(2000)).getValue());
+				.calculateAvgElevation(new SimpleIntegerProperty(1000), new SimpleIntegerProperty(2000)).getValue());
 
-		assertEquals(new Double(0), CalculatorUtils.calculateAvgEvulation(100, 100, 100));
-		assertEquals(new Double(0), CalculatorUtils.calculateAvgEvulation(100, 200, 0));
-		assertEquals(new Double(0.5), CalculatorUtils.calculateAvgEvulation(1000, 2000, 2000));
+		assertEquals(new Double(0), CalculatorUtils.calculateAvgElevation(100, 100, 100));
+		assertEquals(new Double(0), CalculatorUtils.calculateAvgElevation(100, 200, 0));
+		assertEquals(new Double(0.5), CalculatorUtils.calculateAvgElevation(1000, 2000, 2000));
 
 		assertEquals(new SimpleDoubleProperty(0).getValue(),
-				CalculatorUtils.calculateAvgEvulation(new SimpleIntegerProperty(100), new SimpleIntegerProperty(100),
+				CalculatorUtils.calculateAvgElevation(new SimpleIntegerProperty(100), new SimpleIntegerProperty(100),
 						new SimpleIntegerProperty(100)).getValue());
 		assertEquals(new SimpleDoubleProperty(0).getValue(),
-				CalculatorUtils.calculateAvgEvulation(new SimpleIntegerProperty(100), new SimpleIntegerProperty(200),
+				CalculatorUtils.calculateAvgElevation(new SimpleIntegerProperty(100), new SimpleIntegerProperty(200),
 						new SimpleIntegerProperty(0)).getValue());
 		assertEquals(new SimpleDoubleProperty(0.5).getValue(),
-				CalculatorUtils.calculateAvgEvulation(new SimpleIntegerProperty(1000), new SimpleIntegerProperty(2000),
+				CalculatorUtils.calculateAvgElevation(new SimpleIntegerProperty(1000), new SimpleIntegerProperty(2000),
 						new SimpleIntegerProperty(2000)).getValue());
 	}
 

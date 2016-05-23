@@ -1,37 +1,39 @@
 package xmlhandlers;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import model.Trip;
 
+/**
+ * Handler class for accessing information stored in {@code XML} files.
+ */
 public class TripHandler extends DefaultHandler {
 
-	private Trip trip;
-	private List<Trip> trips;
+	private Trip trip = new Trip();
+	private List<Trip> trips = new ArrayList<Trip>();
 
-	Boolean name = false;
-	Boolean start_time = false;
-	Boolean end_time = false;
-	Boolean start_height = false;
-	Boolean end_height = false;
-	Boolean length = false;
-	Boolean comment = false;
+	private Boolean name = false;
+	private Boolean start_time = false;
+	private Boolean end_time = false;
+	private Boolean start_height = false;
+	private Boolean end_height = false;
+	private Boolean length = false;
+	private Boolean comment = false;
 
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
 
-	public TripHandler() {
-		trips = new ArrayList<Trip>();
-		trip = new Trip();
-	}
-
+	/**
+	 * Handles the different tags and saves their value in a {@link model.Trip}s
+	 * appropriate fields.
+	 */
 	@Override
-	public void characters(char[] ch, int start, int length) throws SAXException {
+	public void characters(char[] ch, int start, int length) {
 		if (name) {
 			trip.setName(new String(ch, start, length));
 			name = false;
@@ -60,16 +62,12 @@ public class TripHandler extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * This method tells the {@link #characters(char[], int, int)} method which
+	 * is the next field.
+	 */
 	@Override
-	public void endElement(String uri, String localName, String qName) throws SAXException {
-		if (qName.equalsIgnoreCase("trip")) {
-			trip.refresh();
-			trips.add(trip);
-		}
-	}
-
-	@Override
-	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+	public void startElement(String uri, String localName, String qName, Attributes attributes) {
 		if (qName.equalsIgnoreCase("trip")) {
 			trip = new Trip();
 			trip.setId(attributes.getValue("id"));
@@ -90,6 +88,22 @@ public class TripHandler extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Adds the {@link model.Trip} to the list.
+	 */
+	@Override
+	public void endElement(String uri, String localName, String qName) {
+		if (qName.equalsIgnoreCase("trip")) {
+			trip.refresh();
+			trips.add(trip);
+		}
+	}
+
+	/**
+	 * This method returns the trips in a list. The list is sorted by name.
+	 * 
+	 * @return the list which stores the available lists.
+	 */
 	public List<Trip> getTripList() {
 		trips.sort((e1, e2) -> e1.getName().compareTo(e2.getName()));
 		return trips;

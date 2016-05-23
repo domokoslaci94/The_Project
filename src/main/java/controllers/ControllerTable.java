@@ -1,3 +1,4 @@
+ // CHECKSTYLE:OFF
 package controllers;
 
 import java.io.IOException;
@@ -89,7 +90,7 @@ public class ControllerTable {
 			Optional<ButtonType> buttonClicked = alert.showAndWait();
 
 			if (buttonClicked.get().equals(ButtonType.OK)) {
-				Logger.info(count +" elements deleted");
+				Logger.info(count + " elements deleted");
 				DataUtils.tripList.removeAll(tableView.getSelectionModel().getSelectedItems());
 				tripList.setAll(DataUtils.tripList);
 				DataUtils.saveTripList(MainView.tripTableId);
@@ -250,7 +251,7 @@ public class ControllerTable {
 		}
 	}
 
-	public void refresh(TableView tableView, ObservableList list) {
+	public void refresh(TableView<Trip> tableView, ObservableList<Trip> list) {
 		tableView.setItems(null);
 		tableView.layout();
 		tableView.setItems(list);
@@ -282,8 +283,6 @@ public class ControllerTable {
 						endHeightColumn.setCellValueFactory(e -> new SimpleStringProperty(
 								ConverterUtils.convertMtoKM(e.getValue().getEndHeight()).toString()));
 						;
-
-						// TODO: WTF?
 						refresh(tableView, tripList);
 					} else if (groupLength.getSelectedToggle().equals(meterRadio)) {
 						lengthColumn.setCellValueFactory(
@@ -296,19 +295,20 @@ public class ControllerTable {
 						refresh(tableView, tripList);
 					}
 				});
-		
-		
-		groupSpeed.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> value, Toggle oldToggle, Toggle newToggle) -> {
-			if(groupSpeed.getSelectedToggle().equals(kmperhRadio)){
-				avgSpeedColumn.setCellValueFactory(e -> new SimpleStringProperty(ConverterUtils.convertMStoKMH(e.getValue().getAvgSpeed()).toString()));
-				refresh(tableView, tripList);
-			} else if(groupSpeed.getSelectedToggle().equals(mpersRadio)){
-				avgSpeedColumn.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getAvgSpeed().toString()));
-				refresh(tableView, tripList);
-			}
-			
-			
-		});
+
+		groupSpeed.selectedToggleProperty()
+				.addListener((ObservableValue<? extends Toggle> value, Toggle oldToggle, Toggle newToggle) -> {
+					if (groupSpeed.getSelectedToggle().equals(kmperhRadio)) {
+						avgSpeedColumn.setCellValueFactory(e -> new SimpleStringProperty(
+								ConverterUtils.convertMStoKMH(e.getValue().getAvgSpeed()).toString()));
+						refresh(tableView, tripList);
+					} else if (groupSpeed.getSelectedToggle().equals(mpersRadio)) {
+						avgSpeedColumn.setCellValueFactory(
+								e -> new SimpleStringProperty(e.getValue().getAvgSpeed().toString()));
+						refresh(tableView, tripList);
+					}
+
+				});
 
 		textField.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredTripList.setPredicate(e -> {

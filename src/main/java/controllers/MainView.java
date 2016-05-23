@@ -1,3 +1,4 @@
+ // CHECKSTYLE:OFF
 package controllers;
 
 import java.io.IOException;
@@ -6,6 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import org.pmw.tinylog.Logger;
 import org.xml.sax.SAXException;
 
 import javafx.application.Application;
@@ -49,13 +51,16 @@ public class MainView extends Application {
 		tablePane = (AnchorPane) loader.load();
 	}
 
-	public static void initDatabaseSelector()
-			throws IOException, ParserConfigurationException, SAXException, TransformerException {
+	public static void initDatabaseSelector(){
 		DataUtils.intit();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(MainView.class.getResource("/fxml/DatabaseSelector.fxml"));
 
-		databaseSelectorPane = (AnchorPane) loader.load();
+		try {
+			databaseSelectorPane = (AnchorPane) loader.load();
+		} catch (IOException e) {
+			Logger.error(e.toString());
+		}
 		rootPane.setCenter(databaseSelectorPane);
 		
 	}
@@ -138,7 +143,7 @@ public class MainView extends Application {
 		dialogStage.showAndWait();
 	}
 
-	// Ez csúnya
+	//TODO: Refractor?
 	public static void setScene(AnchorPane pane) {
 		rootPane.setCenter(pane);
 	}
