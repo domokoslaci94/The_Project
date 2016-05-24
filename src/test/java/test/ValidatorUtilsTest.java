@@ -7,12 +7,10 @@ import static org.junit.Assert.assertTrue;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import utils.DataUtils;
 import utils.ValidatorUtils;
 
 public class ValidatorUtilsTest {

@@ -1,4 +1,4 @@
- // CHECKSTYLE:OFF
+// CHECKSTYLE:OFF
 package controllers;
 
 import java.io.BufferedReader;
@@ -14,39 +14,40 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 public class ControllerInfo {
-	
+
 	private Stage stage;
-	
+
 	@FXML
 	private Button buttonOk;
-	
+
 	@FXML
 	private TextArea textArea;
-	
+
 	@FXML
-	public void handleButtonOk(ActionEvent e){
+	public void handleButtonOk(ActionEvent e) {
 		stage.close();
 	}
-	
+
 	@FXML
 	private void initialize() {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(MainView.class.getResourceAsStream("/info.txt")));
-		StringBuilder builder =  new StringBuilder();
-		String info;
-		String tmp;
-		
+		BufferedReader reader;
 		try {
-			while((tmp = reader.readLine())!= null ){
+			reader = new BufferedReader(new InputStreamReader(MainView.class.getResourceAsStream("/info.txt"), "UTF8"));
+			StringBuilder builder = new StringBuilder();
+			String info;
+			String tmp;
+
+			while ((tmp = reader.readLine()) != null) {
 				builder.append(tmp);
-				if(tmp.equals("")){
+				if (tmp.equals("")) {
 					builder.append("\n\n");
 				}
 			}
+			info = builder.toString();
+			textArea.setText(info);
 		} catch (IOException e) {
 			Logger.error(e.toString());
 		}
-		info = builder.toString();
-		textArea.setText(info);
 	}
 
 	public Stage getStage() {
