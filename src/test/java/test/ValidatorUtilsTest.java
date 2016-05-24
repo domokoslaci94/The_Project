@@ -49,7 +49,7 @@ public class ValidatorUtilsTest {
 		assertTrue(ValidatorUtils.isCorrectHour(string));
 		assertTrue(ValidatorUtils.isCorrectHour(stringProperty));
 
-		string = "24";
+		string = "23";
 		stringProperty.set(string);
 		assertTrue(ValidatorUtils.isCorrectHour(string));
 		assertTrue(ValidatorUtils.isCorrectHour(stringProperty));
