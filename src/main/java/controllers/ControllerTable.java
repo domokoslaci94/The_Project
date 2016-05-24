@@ -1,13 +1,10 @@
- // CHECKSTYLE:OFF
+// CHECKSTYLE:OFF
 package controllers;
 
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.xml.transform.TransformerException;
-
 import org.pmw.tinylog.Logger;
-import org.xml.sax.SAXException;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -17,6 +14,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -29,6 +28,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Trip;
 import utils.ConverterUtils;
 import utils.DataUtils;
@@ -50,7 +53,7 @@ public class ControllerTable {
 			chkHeightDifference, chkAvgSpeed, chkAvgElevation, chkComment;
 
 	@FXML
-	private Button buttonDelete, buttonAdd, buttonEdit, buttonLoad, buttonShowSummary;
+	private Button buttonDelete, buttonAdd, buttonEdit, buttonLoad, buttonShowSummary, buttonInfo;
 
 	@FXML
 	private RadioButton meterRadio, kilometerRadio, mpersRadio, kmperhRadio;
@@ -77,7 +80,30 @@ public class ControllerTable {
 	}
 
 	@FXML
-	public void handleButtonDelete() throws SAXException, IOException, TransformerException {
+	public void handleButtonInfo() {	
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainView.class.getResource("/fxml/Info.fxml"));
+			Pane infoPane;
+			infoPane = (AnchorPane) loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(MainView.primaryStage);
+			dialogStage.setScene(new Scene(infoPane));
+
+			ControllerInfo controller = loader.getController();
+			controller.setStage(dialogStage);
+
+			dialogStage.setResizable(false);
+			dialogStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@FXML
+	public void handleButtonDelete() {
 		Logger.info("Delete button pressed");
 		if (tableView.getSelectionModel().getSelectedIndex() < 0) {
 			Logger.error("Nothing is selected!");
@@ -100,7 +126,7 @@ public class ControllerTable {
 	}
 
 	@FXML
-	public void handleButtonAdd() throws IOException, SAXException, TransformerException {
+	public void handleButtonAdd() {
 		Logger.info("Button add pressed");
 		MainView.showNewTripDialog();
 		tripList.setAll(DataUtils.tripList);
@@ -108,7 +134,7 @@ public class ControllerTable {
 	}
 
 	@FXML
-	public void handleButtonEdit() throws IOException, SAXException, TransformerException {
+	public void handleButtonEdit() {
 		Logger.info("Edit button pressed");
 		if (tableView.getSelectionModel().getSelectedIndex() < 0) {
 			Logger.error("Nothing is selected");
@@ -122,11 +148,11 @@ public class ControllerTable {
 
 	@FXML
 	public void handleButtonLoad() {
-		MainView.setScene(MainView.databaseSelectorPane);
+		MainView.showDatabaseSelectorPane();
 	}
 
 	@FXML
-	public void handleButtonSummary() throws IOException {
+	public void handleButtonSummary() {
 		MainView.showSummary();
 	}
 
@@ -276,14 +302,20 @@ public class ControllerTable {
 		groupLength.selectedToggleProperty()
 				.addListener((ObservableValue<? extends Toggle> value, Toggle oldToggle, Toggle newToggle) -> {
 					if (groupLength.getSelectedToggle().equals(kilometerRadio)) {
-						lengthColumn.setCellValueFactory(e -> new SimpleStringProperty(
-								ConverterUtils.convertMtoKM(e.getValue().getLength()).toString()));
-						startHeightColumn.setCellValueFactory(e -> new SimpleStringProperty(
-								ConverterUtils.convertMtoKM(e.getValue().getStartHeight()).toString()));
-						endHeightColumn.setCellValueFactory(e -> new SimpleStringProperty(
-								ConverterUtils.convertMtoKM(e.getValue().getEndHeight()).toString()));
-						;
+						lengthColumn.setCellValueFactory(e -> new SimpleStringProperty(String.format("%.2f",
+								ConverterUtils.convertMtoKM(e.getValue().getLength()).doubleValue())));
+
+						startHeightColumn.setCellValueFactory(e -> new SimpleStringProperty(String.format("%.2f",
+								ConverterUtils.convertMtoKM(e.getValue().getStartHeight()).doubleValue())));
+
+						endHeightColumn.setCellValueFactory(e -> new SimpleStringProperty(String.format("%.2f",
+								ConverterUtils.convertMtoKM(e.getValue().getEndHeight()).doubleValue())));
+
+						heightDifferenceColumn.setCellValueFactory(e -> new SimpleStringProperty(String.format("%.2f",
+								ConverterUtils.convertMtoKM(e.getValue().getHeightDifference()))));
+
 						refresh(tableView, tripList);
+
 					} else if (groupLength.getSelectedToggle().equals(meterRadio)) {
 						lengthColumn.setCellValueFactory(
 								e -> new SimpleStringProperty(e.getValue().getLengthProperty().getValue().toString()));
@@ -291,6 +323,8 @@ public class ControllerTable {
 								e -> new SimpleStringProperty(e.getValue().getStartHeight().toString()));
 						endHeightColumn.setCellValueFactory(e -> new SimpleStringProperty(
 								e.getValue().getEndHeightProperty().getValue().toString()));
+						heightDifferenceColumn.setCellValueFactory(
+								e -> new SimpleStringProperty(e.getValue().getHeightDifference().toString()));
 
 						refresh(tableView, tripList);
 					}
@@ -299,12 +333,15 @@ public class ControllerTable {
 		groupSpeed.selectedToggleProperty()
 				.addListener((ObservableValue<? extends Toggle> value, Toggle oldToggle, Toggle newToggle) -> {
 					if (groupSpeed.getSelectedToggle().equals(kmperhRadio)) {
-						avgSpeedColumn.setCellValueFactory(e -> new SimpleStringProperty(
-								ConverterUtils.convertMStoKMH(e.getValue().getAvgSpeed()).toString()));
+						avgSpeedColumn.setCellValueFactory(e -> new SimpleStringProperty(String.format("%.2f",
+								ConverterUtils.convertMStoKMH(e.getValue().getAvgSpeed().doubleValue()))));
+
 						refresh(tableView, tripList);
+
 					} else if (groupSpeed.getSelectedToggle().equals(mpersRadio)) {
-						avgSpeedColumn.setCellValueFactory(
-								e -> new SimpleStringProperty(e.getValue().getAvgSpeed().toString()));
+						avgSpeedColumn.setCellValueFactory(e -> new SimpleStringProperty(
+								String.format("%.2f", e.getValue().getAvgSpeed().doubleValue())));
+
 						refresh(tableView, tripList);
 					}
 
@@ -340,10 +377,10 @@ public class ControllerTable {
 				e -> new SimpleStringProperty(e.getValue().getEndHeightProperty().getValue().toString()));
 		heightDifferenceColumn.setCellValueFactory(
 				e -> new SimpleStringProperty(e.getValue().getheightDifferenceProperty().getValue().toString()));
-		avgSpeedColumn.setCellValueFactory(
-				e -> new SimpleStringProperty(String.format("%.2f", e.getValue().getAvgSpeedProperty().getValue())));
-		avgElevationColumn.setCellValueFactory(
-				e -> new SimpleStringProperty(e.getValue().getAvgElevationProperty().getValue().toString()));
+		avgSpeedColumn.setCellValueFactory(e -> new SimpleStringProperty(
+				String.format("%.2f", e.getValue().getAvgSpeedProperty().getValue().doubleValue())));
+		avgElevationColumn.setCellValueFactory(e -> new SimpleStringProperty(
+				String.format("%.2f", e.getValue().getAvgElevationProperty().getValue().doubleValue())));
 		commentColumn.setCellValueFactory(e -> e.getValue().getCommentProperty());
 	}
 }

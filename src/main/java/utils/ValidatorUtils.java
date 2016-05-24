@@ -10,7 +10,7 @@ public class ValidatorUtils {
 	/**
 	 * Regular expression which validates hours input.
 	 */
-	public static final String HOURSREGEX = "([0-1]?[0-9])|([2][0-4])";
+	public static final String HOURSREGEX = "([0-1]?[0-9])|([2][0-3])";
 
 	/**
 	 * Regular expression which validates minutes input.

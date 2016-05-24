@@ -20,17 +20,17 @@
                         <TableColumn fx:id="nameColumn" editable="false" prefWidth="597.0" resizable="false" style="-fx-alignment: CENTER;" text="Name" />
                      </columns>
                   </TableView>
-                  <TextField fx:id="textField" layoutX="75.0" layoutY="248.0" onKeyPressed="#handleTexFieldKeyPress" prefHeight="25.0" prefWidth="422.0" />
-                  <Label fx:id="label" layoutX="14.0" layoutY="354.0" prefHeight="25.0" prefWidth="483.0" text="Semmi" textFill="RED" />
-                  <Button fx:id="buttonAdd" layoutX="511.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleButtonAdd" prefHeight="25.0" prefWidth="65.0" text="Add" />
-                  <Button fx:id="buttonRemove" layoutX="511.0" layoutY="282.0" mnemonicParsing="false" onAction="#handleButtonRemove" prefHeight="25.0" prefWidth="65.0" text="Remove" />
+                  <TextField fx:id="textField" layoutX="75.0" layoutY="248.0" onKeyPressed="#handleTexFieldKeyPress" prefHeight="26.0" prefWidth="340.0" />
+                  <Label fx:id="label" layoutX="14.0" layoutY="354.0" prefHeight="25.0" prefWidth="483.0" text="Error" textFill="RED" />
+                  <Button fx:id="buttonAdd" layoutX="461.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleButtonAdd" prefHeight="26.0" prefWidth="115.0" text="Add" />
+                  <Button fx:id="buttonRemove" layoutX="461.0" layoutY="282.0" mnemonicParsing="false" onAction="#handleButtonRemove" prefHeight="26.0" prefWidth="115.0" text="Remove" />
                   <Label layoutX="14.0" layoutY="248.0" text="Name: ">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Button fx:id="buttonLoad" layoutX="511.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleButtonLoad" prefHeight="25.0" prefWidth="65.0" text="Load" />
-                  <Button fx:id="buttonRename" layoutX="511.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleButtonRename" prefHeight="25.0" prefWidth="65.0" text="Rename" />
+                  <Button fx:id="buttonLoad" layoutX="461.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleButtonLoad" prefHeight="26.0" prefWidth="115.0" text="Load" />
+                  <Button fx:id="buttonRename" layoutX="461.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleButtonRename" prefHeight="26.0" prefWidth="115.0" text="Rename" />
                </children></AnchorPane>
         </items>
       </SplitPane>

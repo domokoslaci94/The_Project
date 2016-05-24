@@ -21,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -30,6 +31,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import utils.DataUtils;
 import utils.ValidatorUtils;
@@ -50,6 +52,8 @@ public class ControllerDatabase {
 
 	@FXML
 	TextField textField;
+	
+	private Stage stage;
 
 	private ObservableList<Map.Entry<String, String>> items;
 
@@ -64,7 +68,9 @@ public class ControllerDatabase {
 				int index = tableView.getSelectionModel().getSelectedIndex();
 				MainView.tripTableId = items.get(index).getKey();
 				MainView.initTableLayout();
-				MainView.setScene(MainView.tablePane);
+				MainView.primaryStage.setScene(new Scene(MainView.tablePane));
+				MainView.primaryStage.show();
+				stage.close();
 			}
 
 		}
@@ -183,5 +189,13 @@ public class ControllerDatabase {
 
 		label.setVisible(false);
 
+	}
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 }

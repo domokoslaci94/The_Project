@@ -9,53 +9,53 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerNewTrip">
    <children>
-      <TextField fx:id="nameField" layoutX="120.0" layoutY="81.0" prefHeight="25.0" prefWidth="155.0" promptText="Name" />
-      <DatePicker fx:id="startTimeDatePicker" layoutX="107.0" layoutY="124.0" promptText="Date" />
+      <TextField fx:id="nameField" layoutX="136.0" layoutY="81.0" prefHeight="26.0" prefWidth="139.0" promptText="Name" AnchorPane.leftAnchor="135.0" />
+      <DatePicker fx:id="startTimeDatePicker" layoutX="134.0" layoutY="124.0" prefHeight="26.0" prefWidth="139.0" promptText="Date" AnchorPane.leftAnchor="135.0" />
       <TextField fx:id="startTimeHoursField" layoutX="294.0" layoutY="124.0" prefHeight="25.0" prefWidth="39.0" promptText="HH" />
       <TextField fx:id="startTimeMinutesField" layoutX="358.0" layoutY="124.0" prefHeight="25.0" prefWidth="39.0" promptText="MM" />
-      <DatePicker fx:id="endTimeDatePicker" layoutX="107.0" layoutY="170.0" promptText="Date" />
+      <DatePicker fx:id="endTimeDatePicker" layoutX="142.0" layoutY="171.0" prefHeight="26.0" prefWidth="139.0" promptText="Date" AnchorPane.leftAnchor="135.0" />
       <TextField fx:id="endTimeHoursField" layoutX="294.0" layoutY="170.0" prefHeight="25.0" prefWidth="39.0" promptText="HH" />
       <TextField fx:id="endTimeMinutesField" layoutX="358.0" layoutY="170.0" prefHeight="25.0" prefWidth="39.0" promptText="MM" />
-      <TextField fx:id="startHeightField" layoutX="126.0" layoutY="210.0" prefHeight="25.0" prefWidth="155.0" promptText="Height in meters" />
-      <TextField fx:id="endHeightField" layoutX="126.0" layoutY="254.0" prefHeight="25.0" prefWidth="155.0" promptText="Height in meters" />
-      <TextField fx:id="lengthField" layoutX="126.0" layoutY="301.0" prefHeight="25.0" prefWidth="155.0" promptText="Length in meters" />
-      <TextField fx:id="commentField" layoutX="27.0" layoutY="385.0" prefHeight="153.0" prefWidth="370.0" />
+      <TextField fx:id="startHeightField" layoutX="142.0" layoutY="210.0" prefHeight="26.0" prefWidth="139.0" promptText="Height in meters" AnchorPane.leftAnchor="135.0" />
+      <TextField fx:id="endHeightField" layoutX="142.0" layoutY="254.0" prefHeight="26.0" prefWidth="139.0" promptText="Height in meters" AnchorPane.leftAnchor="135.0" />
+      <TextField fx:id="lengthField" layoutX="142.0" layoutY="301.0" prefHeight="26.0" prefWidth="139.0" promptText="Length in meters" AnchorPane.leftAnchor="135.0" />
+      <TextField fx:id="commentField" layoutX="12.0" layoutY="385.0" prefHeight="153.0" prefWidth="385.0" />
       <Label layoutX="73.0" layoutY="24.0" text="Add new trip to the list">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="24.0" layoutY="81.0" text="Name:" AnchorPane.leftAnchor="30.0">
+      <Label layoutX="24.0" layoutY="81.0" text="Name:" AnchorPane.leftAnchor="10.0">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="24.0" layoutY="124.0" text="Start time:" AnchorPane.leftAnchor="30.0">
+      <Label layoutX="24.0" layoutY="124.0" text="Start time:" AnchorPane.leftAnchor="10.0">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="25.0" layoutY="170.0" text="End time: " AnchorPane.leftAnchor="30.0">
+      <Label layoutX="25.0" layoutY="170.0" text="End time: " AnchorPane.leftAnchor="10.0">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="27.0" layoutY="210.0" text="Start height:" AnchorPane.leftAnchor="30.0">
+      <Label layoutX="27.0" layoutY="210.0" text="Start height:" AnchorPane.leftAnchor="10.0">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="21.0" layoutY="254.0" text="End height:" AnchorPane.leftAnchor="30.0">
+      <Label layoutX="21.0" layoutY="254.0" text="End height:" AnchorPane.leftAnchor="10.0">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="26.0" layoutY="301.0" text="Length:" AnchorPane.leftAnchor="30.0">
+      <Label layoutX="26.0" layoutY="301.0" text="Length:" AnchorPane.leftAnchor="10.0">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="30.0" layoutY="342.0" text="Comment:" AnchorPane.leftAnchor="30.0">
+      <Label layoutX="30.0" layoutY="342.0" text="Comment:" AnchorPane.leftAnchor="10.0">
          <font>
             <Font size="16.0" />
          </font>
@@ -80,13 +80,13 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="startHeightErrorLabel" layoutX="30.0" layoutY="235.0" text="Error" textFill="RED" />
-      <Label fx:id="endHeightErrorLabel" layoutX="30.0" layoutY="279.0" text="Error" textFill="RED" />
-      <Label fx:id="lengthErrorLabel" layoutX="30.0" layoutY="326.0" text="Error" textFill="RED" />
-      <Label fx:id="commentErrorLabel" layoutX="30.0" layoutY="367.0" text="Error" textFill="RED" />
-      <Label fx:id="startTimeErrorLabel" layoutX="30.0" layoutY="149.0" text="Error" textFill="RED" />
-      <Label fx:id="endTimeErrorLabel" layoutX="30.0" layoutY="195.0" text="Error" textFill="RED" />
-      <Label fx:id="nameErrorLabel" layoutX="30.0" layoutY="106.0" text="Error" textFill="RED" />
+      <Label fx:id="startHeightErrorLabel" layoutX="30.0" layoutY="235.0" text="Error" textFill="RED" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="endHeightErrorLabel" layoutX="30.0" layoutY="279.0" text="Error" textFill="RED" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="lengthErrorLabel" layoutX="30.0" layoutY="326.0" text="Error" textFill="RED" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="commentErrorLabel" layoutX="30.0" layoutY="367.0" text="Error" textFill="RED" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="startTimeErrorLabel" layoutX="30.0" layoutY="149.0" text="Error" textFill="RED" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="endTimeErrorLabel" layoutX="30.0" layoutY="195.0" text="Error" textFill="RED" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="nameErrorLabel" layoutX="30.0" layoutY="106.0" text="Error" textFill="RED" AnchorPane.leftAnchor="10.0" />
       <Button fx:id="buttonAdd" layoutX="74.0" layoutY="550.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="36.0" prefWidth="105.0" text="Add" />
       <Button fx:id="buttonCancel" layoutX="242.0" layoutY="550.0" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="36.0" prefWidth="105.0" text="Cancel" />
    </children>

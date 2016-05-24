@@ -28,7 +28,7 @@
         </rowConstraints>
          <children>
             <PieChart fx:id="pieChart" title="Trips by Length" />
-            <LineChart fx:id="lineChart" legendVisible="false" title="Avarge speed VS Avarge Elevation" GridPane.rowIndex="1">
+            <LineChart fx:id="lineChart" legendVisible="false" title="Speed VS Elevation" GridPane.rowIndex="1">
               <xAxis>
                 <CategoryAxis side="BOTTOM" fx:id="xAxisLineChart" />
               </xAxis>

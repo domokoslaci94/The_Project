@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerInfo">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="143.0" layoutY="14.0" prefHeight="36.0" prefWidth="115.0" text="Info">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="textArea" editable="false" layoutY="50.0" prefHeight="480.0" prefWidth="400.0" wrapText="true" />
+      <Button fx:id="buttonOk" layoutX="161.0" layoutY="552.0" mnemonicParsing="false" onAction="#handleButtonOk" prefWidth="80.0" text="OK" />
+   </children>
+</AnchorPane>
