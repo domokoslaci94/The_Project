@@ -21,14 +21,6 @@ public class ValidatorUtilsTest {
 	StringProperty stringProperty = new SimpleStringProperty();
 	LocalDateTime nullTime = null;
 	Duration nullDuration = null;
-	
-	@Before
-	public void setUp(){
-		DataUtils dataUtils = new DataUtils();
-		
-		dataUtils.databaseMap.put("id1", "bar");
-	}
-	
 	@Test
 	public void testIsCorrectHour() {
 
@@ -132,12 +124,6 @@ public class ValidatorUtilsTest {
 
 		string = "132";
 		assertEquals(new Integer(-3).intValue(), ValidatorUtils.validateName(string));
-	
-		string = "bar";
-		assertEquals(new Integer(-2).intValue(), ValidatorUtils.validateName(string));
-		
-		string = "foo";
-		assertEquals(new Integer(1).intValue(), ValidatorUtils.validateName(string));
 	}
 
 }
