@@ -163,7 +163,7 @@ public class ControllerNewTrip {
 
 			if (!ValidatorUtils.isCorrectHeight(endHeightField.getText())) {
 				endHeightErrorLabel
-						.setText("The specified height is invalid the value must be between 0 and 10 000 000");
+						.setText("The specified height is invalid");
 				endHeightErrorLabel.setVisible(true);
 				correct = false;
 			}
@@ -176,7 +176,7 @@ public class ControllerNewTrip {
 
 			if (!ValidatorUtils.isCorrectLength(lengthField.getText())) {
 				lengthErrorLabel.setText(
-						"The specified length is invalid the value must be between -10 000 000 and 10 000 000");
+						"The specified length is invalid!");
 				lengthErrorLabel.setVisible(true);
 				correct = false;
 			}
@@ -188,7 +188,7 @@ public class ControllerNewTrip {
 			}
 
 			if (commentField.getText().length() > 100) {
-				commentErrorLabel.setText("The max length of the comment is 100");
+				commentErrorLabel.setText("The max length of the comment is 100!");
 				commentErrorLabel.setVisible(true);
 				correct = false;
 			}
