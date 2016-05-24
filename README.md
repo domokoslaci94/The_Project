@@ -1,2 +1,2 @@
-# The_Project
-Trip database
+#Trip Manager
+
